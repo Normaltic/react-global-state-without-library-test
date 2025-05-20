@@ -6,7 +6,7 @@ export function getSnapshot() {
   return counter;
 }
 
-export function setSnapShot(value: number) {
+export function setSnapshot(value: number) {
   counter = value;
   listners.forEach((listner) => listner());
 }
