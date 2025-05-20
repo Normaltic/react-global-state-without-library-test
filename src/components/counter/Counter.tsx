@@ -1,6 +1,6 @@
 "use client";
-import CounterController from "@/components/CounterController";
-import CounterViewer from "@/components/CounterViewer";
+import CounterController from "./CounterController";
+import CounterViewer from "./CounterViewer";
 
 function Counter() {
   return (
