@@ -4,7 +4,7 @@ function RecordNumberController() {
   const [value, setValue] = useRecordStore("number", 0);
 
   return (
-    <div className="[&>button]:px-2 [&>button]:border ">
+    <div className="[&>button]:px-2 [&>button]:border">
       <button type="button" onClick={() => setValue(value + 1)}>
         +
       </button>

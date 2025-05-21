@@ -4,7 +4,7 @@ function CounterController() {
   const [value, setCounter] = useCounterStore();
 
   return (
-    <div className="[&>button]:px-2 [&>button]:border ">
+    <div className="[&>button]:px-2 [&>button]:border">
       <button type="button" onClick={() => setCounter(value + 1)}>
         +
       </button>
