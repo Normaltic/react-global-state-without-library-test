@@ -1,3 +1,4 @@
+"use client";
 import useCounterStore from "@/hooks/useCounterStore";
 
 function CounterController() {

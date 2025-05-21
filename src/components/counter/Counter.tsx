@@ -1,4 +1,3 @@
-"use client";
 import CounterController from "./CounterController";
 import CounterViewer from "./CounterViewer";
 

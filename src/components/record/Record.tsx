@@ -1,4 +1,3 @@
-"use client";
 import RecordNumberController from "./RecordNumberController";
 import RecordNumberViewer from "./RecordNumberViewer";
 import RecordTypeController from "./RecordTypeController";

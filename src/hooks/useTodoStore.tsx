@@ -1,12 +1,8 @@
-import { subscribe, getSnapshot, initialTodoStore } from "@/store/todoStore";
+import { subscribe, getSnapshot } from "@/store/todoStore";
 import { useSyncExternalStore } from "react";
 
 function useTodoStore() {
-  const store = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    () => initialTodoStore
-  );
+  const store = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   return store;
 }

@@ -11,7 +11,7 @@ interface TodoStore {
 
 let id = 0;
 
-export const initialTodoStore: TodoStore = {
+const initialTodoStore: TodoStore = {
   todos: []
 };
 

@@ -1,3 +1,4 @@
+"use client";
 import useRecordStore from "@/hooks/useRecordStore";
 
 function RecordNumberController() {

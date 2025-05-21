@@ -8,7 +8,7 @@ export interface ObjectStore {
   type: string;
 }
 
-export const initialStore: ObjectStore = {
+const initialStore: ObjectStore = {
   test: {
     version: 0,
     name: "Test Name"
