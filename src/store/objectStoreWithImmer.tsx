@@ -1,0 +1,22 @@
+import createStore from "@/utils/createStoreWithImmer";
+
+export interface ObjectStore {
+  test: {
+    version: number;
+    name: string;
+  };
+  type: string;
+}
+
+const initialStore: ObjectStore = {
+  test: {
+    version: 0,
+    name: "Test Name"
+  },
+  type: "alpha"
+};
+
+export const { subscribe, getSnapshot, setSnapshot } =
+  createStore(initialStore);
+
+export type Selector<T> = (store: ObjectStore) => T;
