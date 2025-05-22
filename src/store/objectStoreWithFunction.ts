@@ -5,7 +5,7 @@ export interface ObjectStore {
     version: number;
     name: string;
   };
-  type: string;
+  type: "alpha" | "beta";
 }
 
 const initialStore: ObjectStore = {
@@ -16,16 +16,29 @@ const initialStore: ObjectStore = {
   type: "alpha"
 };
 
-export const { getSnapshot, setSnapshot, subscribe, increaseVersion } =
-  createStore(initialStore, (setter) => ({
-    increaseVersion: () => {
-      setter((draft) => {
-        draft.test.version += 1;
-      });
-    },
-    setTo: (next: number) => {
-      setter((draft) => {
-        draft.test.version = next;
-      });
-    }
-  }));
+export const {
+  getSnapshot,
+  setSnapshot,
+  subscribe,
+  useStore,
+  useStoreWithSelector,
+  increaseVersion,
+  decreaseVersion,
+  setType
+} = createStore(initialStore, (setter) => ({
+  increaseVersion: () => {
+    setter((draft) => {
+      draft.test.version += 1;
+    });
+  },
+  decreaseVersion: () => {
+    setter((draft) => {
+      draft.test.version -= 1;
+    });
+  },
+  setType: (next: ObjectStore["type"]) => {
+    setter((draft) => {
+      draft.type = next;
+    });
+  }
+}));
