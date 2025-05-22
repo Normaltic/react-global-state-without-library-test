@@ -6,7 +6,7 @@ function createStore<T>(initialStore: T) {
     return store;
   }
 
-  function setSnapshot(value: Partial<T>) {
+  function setSnapshot<U extends keyof T>(value: Pick<T, U>) {
     store = { ...store, ...value };
     listeners.forEach((listener) => listener());
   }
