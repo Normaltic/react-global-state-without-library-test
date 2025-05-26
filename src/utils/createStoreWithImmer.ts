@@ -2,7 +2,7 @@ import { Draft, produce } from "immer";
 
 function createStore<T>(initialStore: T) {
   let store: T = initialStore;
-  let listeners: Array<() => void> = [];
+  const listeners = new Set<() => void>();
 
   function getSnapshot() {
     return store;
@@ -14,9 +14,9 @@ function createStore<T>(initialStore: T) {
   }
 
   function subscribe(listener: () => void) {
-    listeners.push(listener);
+    listeners.add(listener);
     return () => {
-      listeners = listeners.filter((fn) => fn !== listener);
+      listeners.delete(listener);
     };
   }
 

@@ -20,7 +20,7 @@ function createStore<T, U extends FunctionMap>(
   changers: Changers<T, U>
 ) {
   let store: T = initialStore;
-  let listeners: Array<Listener<T>> = [];
+  const listeners = new Set<Listener<T>>();
 
   function getSnapshot() {
     return store;
@@ -33,9 +33,9 @@ function createStore<T, U extends FunctionMap>(
   }
 
   function subscribe(listener: Listener<T>) {
-    listeners.push(listener);
+    listeners.add(listener);
     return () => {
-      listeners = listeners.filter((fn) => fn !== listener);
+      listeners.delete(listener);
     };
   }
 
