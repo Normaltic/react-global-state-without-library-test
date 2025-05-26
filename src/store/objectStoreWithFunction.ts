@@ -25,19 +25,19 @@ export const {
   increaseVersion,
   decreaseVersion,
   setType
-} = createStore(initialStore, (setter) => ({
+} = createStore(initialStore, (setSnapshot) => ({
   increaseVersion: () => {
-    setter((draft) => {
+    setSnapshot((draft) => {
       draft.test.version += 1;
     });
   },
   decreaseVersion: () => {
-    setter((draft) => {
+    setSnapshot((draft) => {
       draft.test.version -= 1;
     });
   },
   setType: (next: ObjectStore["type"]) => {
-    setter((draft) => {
+    setSnapshot((draft) => {
       draft.type = next;
     });
   }
