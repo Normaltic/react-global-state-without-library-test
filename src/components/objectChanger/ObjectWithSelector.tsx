@@ -1,5 +1,5 @@
 "use client";
-import { useStoreWithSelector } from "@/store/objectStoreWithFunction";
+import { useStoreWithSelector } from "@/store/objectStoreWithChanger";
 
 function ObjectWithSelector() {
   const value = useStoreWithSelector(

@@ -1,4 +1,4 @@
-import createStore from "@/utils/createStoreWithFunction";
+import createStore from "@/utils/createStoreWithChanger";
 
 export interface ObjectStore {
   test: {

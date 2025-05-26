@@ -3,7 +3,7 @@ import {
   setType,
   increaseVersion,
   decreaseVersion
-} from "@/store/objectStoreWithFunction";
+} from "@/store/objectStoreWithChanger";
 
 function ObjectController() {
   return (
