@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 라이브러리 없이 React 전역 상태 구현해보기
 
-## Getting Started
+`useSyncExternalStore` Hook을 사용한 전역 상태 라이브러리 구현 테스트
 
-First, run the development server:
+[블로그 글](https://blog.yunji.kim/react_global_state_without_library)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 결과물
+
+`createStoreWithChanger.ts`
+
+- 전역 상태 선언 및 변경 기능
+- 전역 상태 변경 시 이전, 이후 상태를 구독 기능
+- `immer`를 통한 불변성 관리
+- `useSyncExternalStore`를 사용한 `useStore` Hook으로 상태 참조
+- `useSyncExternalStoreWithSelector`를 사용한 `useStoreWithSelector` Hook으로 Selector 를 통한 상태 참조
+
+## 사용법
+
+`createStore`함수로 초기 상태 및 `changer`(상태 변경 함수) 선언
+
+```ts
+// src/store/objectStoreWithChanger.ts
+import createStore from "@/utils/createStoreWithChanger";
+
+export interface EnvStore {
+  release: {
+    version: number;
+    name: string;
+  };
+  type: "alpha" | "beta";
+}
+
+const initialStore: EnvStore = {
+  release: {
+    version: 0,
+    name: "Test Name"
+  },
+  type: "alpha"
+};
+
+export const {
+  getSnapshot, // 현재 상태 반환 함수
+  setSnapshot, // 상태 변경 힘수
+  subscribe, // 상태 구독 함수
+  useStore, // 상태 참조 Hook
+  useStoreWithSelector, // Selector 활용 상태 참조 Hook
+  increaseVersion, // 선언한 changer
+  decreaseVersion, // 선언한 changer
+  setType // 선언한 changer
+} = createStore(initialStore, (setSnapshot) => ({
+  increaseVersion: () => {
+    setSnapshot((draft) => {
+      draft.release.version += 1;
+    });
+  },
+  decreaseVersion: () => {
+    setSnapshot((draft) => {
+      draft.release.version -= 1;
+    });
+  },
+  setType: (next: EnvStore["type"]) => {
+    setSnapshot((draft) => {
+      draft.type = next;
+    });
+  }
+}));
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+참조 및 구독
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```ts
+// anywhere
+const store = getSnapshot();
+const unsubscribe = subscribe((prev, next) => {
+  // process
+});
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+// in component
+const store = useStore();
+const type = useStoreWithSelector((store) => store.type);
+const { version, type } = useStoreWithSelector(
+  (store) => ({
+    version: store.release.version,
+    type: store.type
+  }),
+  (a, b) => a.type === b.type && a.version === b.version;
+);
+```
 
-## Learn More
+업데이트
 
-To learn more about Next.js, take a look at the following resources:
+```ts
+// call setSnapshot directly
+setSnapshot((draft) => {
+  // process
+});
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+// call changer function
+increaseVersion();
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 구현 및 구체화 순서
 
-## Deploy on Vercel
+`counterStore.ts`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `useCounterStore.tsx`, `components/counter/*`
+- 간단한 전역 숫자
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+`recordStore.ts`
+
+- `useRecordStore.tsx`, `useRecordTypeStore`, `components/record/*`
+- `key`, `value` 형식으로 전역 상태 접근
+
+---
+
+`createStore.ts` + `todoStore.ts`
+
+- `useTodoList.tsx`, `components/todo/*`
+- 전역 상태 생성 함수 모듈화
+- 상태 변경 함수 별도 선언 테스트
+
+---
+
+`createStore.ts` + `envStore.ts`
+
+- `useEnvStore.tsx`, `components/env/*`
+- `useSyncExternalStoreWithSelector` Hook을 사용한 Selector 적용
+
+---
+
+`createStoreWithImmer.ts` + `envStoreWithImmer.ts`
+
+- `useEnvStoreWithImmer.tsx`, `components/envImmer/*`
+- 상태 변경 함수 `setSnapshot`에 `immer` 라이브러리 적용
+
+---
+
+`createStoreWithChanger.ts` + `envStoreWithChanger.ts`
+
+- `components/envChanger/*`
+- `subscribe` 함수에 이전 값, 현재 값 참조 기능 추가
+- `useStore`, `useStoreWithSelector` Hook 내장
+- 상태 변경 함수 `changer`를 전역 상태 생성 시에 선언할 수 있도록 변경
