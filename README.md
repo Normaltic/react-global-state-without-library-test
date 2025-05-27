@@ -143,3 +143,9 @@ increaseVersion();
 - `subscribe` 함수에 이전 값, 현재 값 참조 기능 추가
 - `useStore`, `useStoreWithSelector` Hook 내장
 - 상태 변경 함수 `changer`를 전역 상태 생성 시에 선언할 수 있도록 변경
+
+## 참고
+
+- [useSyncExternalStore](https://react.dev/reference/react/useSyncExternalStore)
+- [useSyncExternalStoreWithSelector](https://www.npmjs.com/package/use-sync-external-store)
+- [zustand/src/traditional.ts](https://github.com/pmndrs/zustand/blob/main/src/traditional.ts)
