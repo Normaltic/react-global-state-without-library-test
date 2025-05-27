@@ -1,11 +1,11 @@
 "use client";
-import useObjectStore from "@/hooks/useObjectStoreWithImmer";
+import useEnvStore from "@/hooks/useEnvStoreWithImmer";
 
-function ObjectWithSelector() {
-  const value = useObjectStore(
+function EnvWithSelector() {
+  const value = useEnvStore(
     (store) => {
       return {
-        version: store.test.version,
+        version: store.release.version,
         type: store.type
       };
     },
@@ -17,4 +17,4 @@ function ObjectWithSelector() {
   return <div className="p-4 border">{JSON.stringify(value)}</div>;
 }
 
-export default ObjectWithSelector;
+export default EnvWithSelector;

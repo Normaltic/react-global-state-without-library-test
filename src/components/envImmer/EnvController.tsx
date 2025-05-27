@@ -1,7 +1,7 @@
 "use client";
-import { setSnapshot } from "@/store/objectStoreWithImmer";
+import { setSnapshot } from "@/store/envStoreWithImmer";
 
-function ObjectController() {
+function EnvController() {
   return (
     <div>
       <div className="flex">
@@ -11,7 +11,7 @@ function ObjectController() {
           className="border px-2"
           onClick={() =>
             setSnapshot((draft) => {
-              draft.test.version = draft.test.version + 1;
+              draft.release.version = draft.release.version + 1;
             })
           }
         >
@@ -22,7 +22,7 @@ function ObjectController() {
           className="border px-2"
           onClick={() => {
             setSnapshot((draft) => {
-              draft.test.version = draft.test.version - 1;
+              draft.release.version = draft.release.version - 1;
             });
           }}
         >
@@ -59,4 +59,4 @@ function ObjectController() {
   );
 }
 
-export default ObjectController;
+export default EnvController;

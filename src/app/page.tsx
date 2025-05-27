@@ -1,7 +1,7 @@
 import Counter from "@/components/counter/Counter";
-import ObjectViewer from "@/components/object/ObjectViewer";
-import ObjectImmerViewer from "@/components/objectImmer/ObjectViewer";
-import ObjectChangerViewer from "@/components/objectChanger/ObjectViewer";
+import EnvViewer from "@/components/env/EnvViewer";
+import EnvImmerViewer from "@/components/envImmer/EnvViewer";
+import EnvChangerViewer from "@/components/envChanger/EnvViewer";
 import Record from "@/components/record/Record";
 import TodoList from "@/components/todo/TodoList";
 
@@ -12,9 +12,9 @@ export default function Home() {
         <Counter />
         <Record />
         <TodoList />
-        <ObjectViewer />
-        <ObjectImmerViewer />
-        <ObjectChangerViewer />
+        <EnvViewer />
+        <EnvImmerViewer />
+        <EnvChangerViewer />
       </main>
     </div>
   );

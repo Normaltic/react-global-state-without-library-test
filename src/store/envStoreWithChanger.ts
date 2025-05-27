@@ -1,15 +1,15 @@
 import createStore from "@/utils/createStoreWithChanger";
 
-export interface ObjectStore {
-  test: {
+export interface EnvStore {
+  release: {
     version: number;
     name: string;
   };
   type: "alpha" | "beta";
 }
 
-const initialStore: ObjectStore = {
-  test: {
+const initialStore: EnvStore = {
+  release: {
     version: 0,
     name: "Test Name"
   },
@@ -28,15 +28,15 @@ export const {
 } = createStore(initialStore, (setSnapshot) => ({
   increaseVersion: () => {
     setSnapshot((draft) => {
-      draft.test.version += 1;
+      draft.release.version += 1;
     });
   },
   decreaseVersion: () => {
     setSnapshot((draft) => {
-      draft.test.version -= 1;
+      draft.release.version -= 1;
     });
   },
-  setType: (next: ObjectStore["type"]) => {
+  setType: (next: EnvStore["type"]) => {
     setSnapshot((draft) => {
       draft.type = next;
     });

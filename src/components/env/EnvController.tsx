@@ -1,9 +1,9 @@
 "use client";
-import useObjectStore from "@/hooks/useObjectStore";
-import { setSnapshot } from "@/store/objectStore";
+import useEnvStore from "@/hooks/useEnvStore";
+import { setSnapshot } from "@/store/envStore";
 
-function ObjectController() {
-  const store = useObjectStore();
+function EnvController() {
+  const store = useEnvStore();
   return (
     <div>
       <div className="flex">
@@ -13,7 +13,7 @@ function ObjectController() {
           className="border px-2"
           onClick={() =>
             setSnapshot({
-              test: { ...store.test, version: store.test.version + 1 }
+              release: { ...store.release, version: store.release.version + 1 }
             })
           }
         >
@@ -24,7 +24,7 @@ function ObjectController() {
           className="border px-2"
           onClick={() => {
             setSnapshot({
-              test: { ...store.test, version: store.test.version - 1 }
+              release: { ...store.release, version: store.release.version - 1 }
             });
           }}
         >
@@ -57,4 +57,4 @@ function ObjectController() {
   );
 }
 
-export default ObjectController;
+export default EnvController;

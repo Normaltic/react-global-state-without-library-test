@@ -3,9 +3,9 @@ import {
   setType,
   increaseVersion,
   decreaseVersion
-} from "@/store/objectStoreWithChanger";
+} from "@/store/envStoreWithChanger";
 
-function ObjectController() {
+function EnvController() {
   return (
     <div>
       <div className="flex">
@@ -39,4 +39,4 @@ function ObjectController() {
   );
 }
 
-export default ObjectController;
+export default EnvController;

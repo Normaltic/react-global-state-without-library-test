@@ -1,15 +1,15 @@
-import createStore from "@/utils/createStore";
+import createStore from "@/utils/createStoreWithImmer";
 
-export interface ObjectStore {
-  test: {
+export interface EnvStore {
+  release: {
     version: number;
     name: string;
   };
   type: string;
 }
 
-const initialStore: ObjectStore = {
-  test: {
+const initialStore: EnvStore = {
+  release: {
     version: 0,
     name: "Test Name"
   },
@@ -19,4 +19,4 @@ const initialStore: ObjectStore = {
 export const { subscribe, getSnapshot, setSnapshot } =
   createStore(initialStore);
 
-export type Selector<T> = (store: ObjectStore) => T;
+export type Selector<T> = (store: EnvStore) => T;

@@ -1,8 +1,8 @@
 import { useSyncExternalStoreWithSelector } from "use-sync-external-store/with-selector";
-import { subscribe, getSnapshot } from "@/store/objectStore";
-import type { ObjectStore, Selector } from "@/store/objectStore";
+import { subscribe, getSnapshot } from "@/store/envStoreWithImmer";
+import type { EnvStore, Selector } from "@/store/envStoreWithImmer";
 
-function useObjectStore<T = ObjectStore>(
+function useEnvStore<T = EnvStore>(
   selector: Selector<T> = (store) => store as T,
   isEqual: (a: T, b: T) => boolean = (a, b) => a === b
 ) {
@@ -17,4 +17,4 @@ function useObjectStore<T = ObjectStore>(
   return value;
 }
 
-export default useObjectStore;
+export default useEnvStore;
